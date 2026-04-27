@@ -138,6 +138,63 @@
         ::-webkit-scrollbar-track { background: var(--btn-bg); border-radius: 4px; }
         ::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: 4px; }
         ::-webkit-scrollbar-thumb:hover { background: var(--accent-color); }
+
+		/* =========================================
+           반응형 모바일 최적화 (모바일 화면 조절)
+           ========================================= */
+        @media (max-width: 600px) {
+            body {
+                padding: 10px; /* 모바일에서는 여백을 줄임 */
+            }
+
+            .app-container {
+                padding: 30px 20px; /* 좌우 패딩을 줄여 공간 확보 */
+                border-width: 1px; /* 테두리를 조금 얇게 */
+                outline-offset: 2px;
+            }
+
+            h1 {
+                font-size: 2.8em !important; /* 모바일에서 과학사 제목 크기 축소 */
+            }
+
+            .question-text {
+                font-size: 1.15em; /* 질문 크기 축소 */
+                padding-bottom: 15px;
+                margin-bottom: 20px;
+                word-break: keep-all; /* 단어 단위로 줄바꿈 (이상한 들여쓰기 방지) */
+            }
+
+            .option-btn {
+                padding: 15px; /* 선택지 버튼 내부 여백 축소 */
+                font-size: 1em;
+            }
+
+            .btn {
+                font-size: 1em;
+                padding: 12px 18px;
+            }
+
+            .nav-buttons {
+                flex-direction: column; /* 버튼들을 세로로 배치 */
+                gap: 10px;
+            }
+            
+            .nav-group {
+                width: 100%;
+                justify-content: space-between;
+            }
+
+            .nav-buttons .btn {
+                width: 100%; /* 모바일에서 버튼 꽉 차게 */
+                margin-bottom: 0;
+            }
+
+            .feedback-box {
+                padding: 15px;
+                font-size: 0.9em;
+                word-break: keep-all;
+            }
+        }
     </style>
 </head>
 <body>
