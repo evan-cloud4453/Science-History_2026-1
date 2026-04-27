@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
 	<meta property="og:title" content="과학사 상식 퀴즈">
-	<meta property="og:description" content="세상을 바꾼 과학적 발견, 흥미진진한 O/X 퀴즈로 나의 과학 상식을 테스트해 보세요.">
+	<meta property="og:description" content="세상을 바꾼 과학적 발견, 흥미진진한 퀴즈로 나의 과학 상식을 테스트해 보세요.">
 	<meta property="og:image" content="https://s.pacn.ws/1/p/11t/dark-egypt-680635.11.jpg">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -140,59 +140,93 @@
         ::-webkit-scrollbar-thumb:hover { background: var(--accent-color); }
 
 		/* =========================================
-           반응형 모바일 최적화 (모바일 화면 조절)
+           반응형 모바일 최적화 (모바일 화면 조절 - 수정본)
            ========================================= */
         @media (max-width: 600px) {
             body {
-                padding: 10px; /* 모바일에서는 여백을 줄임 */
+                padding: 10px;
+                min-height: 100vh;
             }
 
             .app-container {
-                padding: 30px 20px; /* 좌우 패딩을 줄여 공간 확보 */
-                border-width: 1px; /* 테두리를 조금 얇게 */
+                padding: 20px 15px; /* 내부 여백을 더 줄여서 공간 확보 */
+                border-width: 1px;
                 outline-offset: 2px;
+                margin-top: 10px; /* 상단 여백 추가 */
             }
 
             h1 {
-                font-size: 2.8em !important; /* 모바일에서 과학사 제목 크기 축소 */
+                font-size: 2.2em !important; /* 과학사 제목 크기를 대폭 축소 */
+                margin-bottom: 5px;
             }
 
+            p {
+                font-size: 0.9em; /* 부제목(History of Science...) 크기 축소 */
+                margin-bottom: 20px !important;
+            }
+
+            h2 {
+                font-size: 1.3em; /* 학습 주제 선택 등 중간 제목 크기 축소 */
+            }
+
+            .menu-btn {
+                font-size: 1em !important;
+                padding: 12px !important; /* 메인 메뉴 버튼 크기 대폭 축소 */
+                margin-bottom: 10px !important;
+            }
+
+            /* 퀴즈 문제 화면 최적화 */
             .question-text {
-                font-size: 1.15em; /* 질문 크기 축소 */
+                font-size: 1.05em; /* 문제 글자 크기 축소 */
                 padding-bottom: 15px;
-                margin-bottom: 20px;
-                word-break: keep-all; /* 단어 단위로 줄바꿈 (이상한 들여쓰기 방지) */
+                margin-bottom: 15px;
+                line-height: 1.5;
+                word-break: keep-all; /* 이상한 들여쓰기/줄바꿈 방지 */
             }
 
             .option-btn {
-                padding: 15px; /* 선택지 버튼 내부 여백 축소 */
+                padding: 12px; /* O, X 선택 버튼 높이 축소 */
                 font-size: 1em;
-            }
-
-            .btn {
-                font-size: 1em;
-                padding: 12px 18px;
-            }
-
-            .nav-buttons {
-                flex-direction: column; /* 버튼들을 세로로 배치 */
-                gap: 10px;
-            }
-            
-            .nav-group {
-                width: 100%;
-                justify-content: space-between;
-            }
-
-            .nav-buttons .btn {
-                width: 100%; /* 모바일에서 버튼 꽉 차게 */
-                margin-bottom: 0;
             }
 
             .feedback-box {
                 padding: 15px;
-                font-size: 0.9em;
-                word-break: keep-all;
+                font-size: 0.85em; /* 해설 글씨 크기 축소 */
+                margin-bottom: 15px;
+            }
+
+            /* 하단 네비게이션 버튼 최적화 */
+            .nav-buttons {
+                flex-direction: row; /* 다시 가로 배치로 변경 */
+                gap: 5px;
+                padding-top: 15px;
+                margin-top: 15px;
+            }
+            
+            .nav-group {
+                display: flex;
+                gap: 5px;
+                flex-grow: 1; /* 우측 버튼 그룹이 공간을 더 차지하도록 */
+                justify-content: flex-end;
+            }
+
+            .nav-buttons .btn {
+                font-size: 0.85em; /* 하단 버튼 글씨 크기 대폭 축소 */
+                padding: 8px 10px; /* 버튼 패딩 축소하여 답답함 해소 */
+                margin-bottom: 0;
+            }
+
+            #quiz-title, #quiz-counter {
+                font-size: 0.9em !important; /* 상단 N주차, N/16 글씨 크기 축소 */
+            }
+            
+            .progress-container {
+                margin-bottom: 15px;
+                gap: 2px; /* 게이지 바 사이 간격 축소 */
+            }
+            .progress-box {
+                width: 15px; /* 게이지 바 길이 축소 */
+                height: 6px;
             }
         }
     </style>
