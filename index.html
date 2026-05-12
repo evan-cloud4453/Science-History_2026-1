@@ -250,8 +250,10 @@
 <body>
 
 <audio id="bgm" src="bgm.mp3" loop></audio>
+<audio id="quiz-bgm" src="quiz_bgm.mp3" loop></audio>
 <audio id="sound-correct" src="correct.mp3"></audio>
 <audio id="sound-wrong" src="wrong.mp3"></audio>
+
 
 <div class="app-container">
     
@@ -359,6 +361,7 @@
 <script>
     // --- 오디오 제어 로직 (배경음/효과음 분리) ---
     const bgm = document.getElementById('bgm');
+	const quizBgm = document.getElementById('quiz-bgm');
     const soundCorrect = document.getElementById('sound-correct');
     const soundWrong = document.getElementById('sound-wrong');
     
@@ -374,6 +377,7 @@
     // 배경음(BGM) 볼륨 조절
     function updateBGMVolume(vol) {
         bgm.volume = vol;
+		quizBgm.volume = vol;
         if (vol > 0 && isBGMMuted) toggleBGMMute();
     }
 
@@ -388,6 +392,7 @@
     function toggleBGMMute() {
         isBGMMuted = !isBGMMuted;
         bgm.muted = isBGMMuted;
+		quizBgm.muted = isBGMMuted;
         
         const muteBtn = document.getElementById('mute-bgm-btn');
         if (isBGMMuted) {
@@ -398,8 +403,15 @@
             muteBtn.textContent = '음소거';
             muteBtn.style.color = 'var(--accent-color)';
             muteBtn.style.borderColor = 'var(--accent-color)';
-            if(bgmStarted && bgm.paused) {
-                 bgm.play().catch(e => console.log("자동 재생이 차단되었습니다."));
+			
+            // 소리를 켤 때 현재 화면에 맞게 재생
+            if(bgmStarted) {
+                const quizScreen = document.getElementById('quiz-screen');
+                if (quizScreen.classList.contains('active')) {
+                     quizBgm.play().catch(e => console.log(e));
+                } else {
+                     bgm.play().catch(e => console.log(e));
+                }
             }
         }
     }
@@ -448,6 +460,19 @@
         document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
         document.getElementById(screenId).classList.add('active');
         window.scrollTo(0, 0);
+
+		// 오디오 교체 로직
+        if (bgmStarted && !isBGMMuted) {
+            if (screenId === 'quiz-screen') {
+                // 퀴즈 화면으로 갈 때: 메인 BGM 정지, 퀴즈 BGM 재생
+                bgm.pause();
+                quizBgm.play().catch(e => console.log(e));
+            } else {
+                // 퀴즈 화면을 벗어날 때 (메인, 결과, 설정, 비망록 등): 퀴즈 BGM 정지, 메인 BGM 재생
+                quizBgm.pause();
+                bgm.play().catch(e => console.log(e));
+            }
+        }
     }
     function returnToHome() { switchScreen('home-screen'); }
 
