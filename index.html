@@ -1849,7 +1849,7 @@
             const month = String(ch.releaseDate.getMonth() + 1).padStart(2, '0');
             const day = String(ch.releaseDate.getDate()).padStart(2, '0');
             
-            btn.textContent = `[${ch.id}주차] ${ch.title} (${month}.${day} 공개)`;
+            btn.textContent = `[${ch.id}주차] (${month}.${day} 공개)`;
             btn.disabled = true; // 버튼 클릭 불가
             btn.style.opacity = '0.6'; // 시각적으로 비활성화 느낌 강조
         } else {
