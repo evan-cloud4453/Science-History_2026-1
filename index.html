@@ -1882,23 +1882,6 @@
     let currentQIndex = 0;
     let sessionState = []; 
 
-    // 주차 그리드 생성 (제목 포함)
-    const grid = document.getElementById('week-grid');
-    chaptersInfo.forEach(ch => {
-        const btn = document.createElement('button');
-        btn.className = 'btn outline';
-        btn.style.textAlign = 'left';
-        
-        if(quizData[ch.id]) {
-            btn.textContent = `[${ch.id}주차] ${ch.title}`;
-            btn.onclick = () => startQuiz(ch);
-        } else {
-            btn.textContent = `[${ch.id}주차] ${ch.title} (준비중)`;
-            btn.disabled = true;
-        }
-        grid.appendChild(btn);
-    });
-
     function startQuiz(chapter) {
         currentChapter = chapter;
         currentQIndex = 0;
