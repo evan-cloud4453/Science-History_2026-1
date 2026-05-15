@@ -371,6 +371,57 @@
 	const quizBgm = document.getElementById('quiz-bgm');
     const soundCorrect = document.getElementById('sound-correct');
     const soundWrong = document.getElementById('sound-wrong');
+
+	const chaptersInfo = [
+        { id: 1, title: "역사와 과학사", releaseDate: new Date("2000-01-01T00:00:00") }, // 이미 공개
+        { id: 2, title: "자연철학과 소피즘", releaseDate: new Date("2000-01-01T00:00:00") }, 
+        { id: 3, title: "에라토스테네스와 앙부일구", releaseDate: new Date("2000-01-01T00:00:00") },
+        { id: 4, title: "과학혁명의 구조", releaseDate: new Date("2000-01-01T00:00:00") },
+        { id: 5, title: "고대의 종말과 중세", releaseDate: new Date("2000-01-01T00:00:00") },
+        { id: 6, title: "이슬람 과학과 르네상스", releaseDate: new Date("2000-01-01T00:00:00") },
+        { id: 7, title: "과학혁명기", releaseDate: new Date("2000-01-01T00:00:00") },
+        { id: 9, title: "과학방법론과 생리학", releaseDate: new Date("2000-01-01T00:00:00") },
+        // --- 10주차부터 예약 공개 ---
+        { id: 10, title: "근대과학과 계몽주의", releaseDate: new Date("2026-05-19T00:00:00") },
+        { id: 11, title: "지질학혁명과 진화론", releaseDate: new Date("2026-05-26T00:00:00") }, // 10주차 1주 뒤
+        { id: 12, title: "진화론과 유전학", releaseDate: new Date("2026-06-02T00:00:00") }, // 11주차 1주 뒤
+        { id: 13, title: "열역학, 전자기학, 상대성이론", releaseDate: new Date("2026-06-09T00:00:00") }, // 12주차 1주 뒤
+        { id: 14, title: "양자역학, 원자폭탄", releaseDate: new Date("2026-06-16T00:00:00") } // 13주차 1주 뒤
+    ];
+
+
+	// 주차 그리드 생성 (공개 시간 체크 포함)
+    const grid = document.getElementById('week-grid');
+    const now = new Date(); // 현재 접속한 사용자의 시간
+
+    chaptersInfo.forEach(ch => {
+        const btn = document.createElement('button');
+        btn.className = 'btn outline';
+        btn.style.textAlign = 'left';
+        
+        if (!quizData[ch.id]) {
+            // 데이터가 아예 없는 경우
+            btn.textContent = `[${ch.id}주차] ${ch.title} (데이터 준비중)`;
+            btn.disabled = true;
+        } else if (now < ch.releaseDate) {
+            // 아직 공개 시간이 되지 않은 경우
+            // 날짜 포맷 (예: 05.19)
+            const month = String(ch.releaseDate.getMonth() + 1).padStart(2, '0');
+            const day = String(ch.releaseDate.getDate()).padStart(2, '0');
+            
+            btn.textContent = `[${ch.id}주차] ${ch.title} (${month}.${day} 공개)`;
+            btn.disabled = true; // 버튼 클릭 불가
+            btn.style.opacity = '0.6'; // 시각적으로 비활성화 느낌 강조
+        } else {
+            // 정상적으로 공개된 경우
+            btn.textContent = `[${ch.id}주차] ${ch.title}`;
+            btn.onclick = () => {
+                startBGM(); // 오디오 시작 (수정한 BGM 함수명에 맞게 조절 필요할 수 있음)
+                startQuiz(ch);
+            };
+        }
+        grid.appendChild(btn);
+    });
     
     let isBGMMuted = false;
     let isSFXMuted = false;
@@ -1130,7 +1181,7 @@
                 q: "케플러의 제 3법칙은 행성주기의 세제곱은 그 행성 태양간 평균거리의 제곱에 비례한다는 것이다.", 
                 options: ["O", "X"], 
                 answer: "X", 
-                rationale: "케플러 제3법칙(조화의 법칙)은 행성 공전 주기의 '제곱($T^2$)'이 태양 간 평균 거리의 '세제곱($a^3$)'에 비례한다는 법칙입니다. 지문의 제곱과 세제곱의 위치가 바뀌었습니다." 
+                rationale: "케플러 제3법칙(조화의 법칙)은 행성 공전 주기의 '제곱(T<sup>2</sup>)'이 태양 간 평균 거리의 '세제곱(a<sup>3</sup>)'에 비례한다는 법칙입니다. 지문의 제곱과 세제곱의 위치가 바뀌었습니다." 
             },
             { 
                 q: "과학혁명은 중세 대학내의 활발한 토론과 비판으로 발생했다.", 
@@ -1320,7 +1371,7 @@
                 q: "뉴튼의 제 3법칙은 속력의 제곱에 비례하고 반지름에 반비례한다.", 
                 options: ["O", "X"], 
                 answer: "X", 
-                rationale: "속력의 제곱에 비례하고 반지름에 반비례하는 것($v^2/r$)은 원운동을 하는 물체에 작용하는 '구심 가속도(혹은 원심력)'의 공식입니다. 뉴턴의 제3법칙이 아닙니다." 
+                rationale: "속력의 제곱에 비례하고 반지름에 반비례하는 것(v<sup>2</sup>/r)은 원운동을 하는 물체에 작용하는 '구심 가속도(혹은 원심력)'의 공식입니다. 뉴턴의 제3법칙이 아닙니다." 
             },
             { 
                 q: "계몽주의 운동의 영향으로 과학진흥협회와 자연사 박물관들이 만들어지고 드디어 과학자라는 단어도 태어난다.", 
@@ -1393,7 +1444,7 @@
             { 
                 q: "영국인 프리스틀리는 개혁적 공화주의자로서 프랑스 혁명을 지지했으며 자신의 진보적 정치신념을 미국에서 이어갔다.", 
                 options: ["O", "X"], 
-                answer: "O", 
+                answer: "O",
                 rationale: "산소를 발견한 영국의 프리스틀리는 군주제를 반대하고 미국 독립혁명과 프랑스 혁명을 공개적으로 지지한 급진적 공화주의자였으며, 폭도들의 탄압을 피해 결국 미국으로 망명했습니다." 
             },
             { 
@@ -1738,7 +1789,7 @@
                 q: "원자폭탄은 아인쉬타인의 질량 에너지 등가방정식을 직접적으로 응용한 것이다.", 
                 options: ["O", "X"], 
                 answer: "X", 
-                rationale: "특수 상대성 이론의 질량-에너지 등가 공식($E=mc^2$)은 원자폭탄의 막대한 에너지를 이론적으로 설명하는 근거가 되지만, 처음부터 폭탄을 만들기 위해 공식을 연구하거나 폭발 메커니즘에 직접 응용한 것은 아닙니다. 폭탄은 오토 한 등의 우라늄 핵분열 발견에서 시작되었습니다." 
+                rationale: "특수 상대성 이론의 질량-에너지 등가 공식(E=mc<sup>2</sup>)은 원자폭탄의 막대한 에너지를 이론적으로 설명하는 근거가 되지만, 처음부터 폭탄을 만들기 위해 공식을 연구하거나 폭발 메커니즘에 직접 응용한 것은 아닙니다. 폭탄은 오토 한 등의 우라늄 핵분열 발견에서 시작되었습니다." 
             },
             { 
                 q: "플랑크는 에너지의 최소단위를 광자라고 주장하면서 광량자 가설을 설명하였다.", 
