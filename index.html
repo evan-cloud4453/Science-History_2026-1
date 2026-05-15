@@ -457,23 +457,31 @@
     }
 
     function switchScreen(screenId) {
+        // 현재 활성화된 스크린이 무엇인지 확인
+        const currentActive = document.querySelector('.screen.active');
+        const currentScreenId = currentActive ? currentActive.id : null;
+
+        // 화면 전환 처리
         document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
         document.getElementById(screenId).classList.add('active');
         window.scrollTo(0, 0);
 
-		// 오디오 교체 로직
+        // --- 오디오 교체 로직 ---
         if (bgmStarted && !isBGMMuted) {
-            if (screenId === 'quiz-screen') {
-                // 퀴즈 화면으로 갈 때: 메인 BGM 정지, 퀴즈 BGM 재생
+            
+            // 1. 퀴즈 화면으로 진입할 때 (메인화면 등 다른 곳에서 넘어올 때)
+            if (screenId === 'quiz-screen' && currentScreenId !== 'quiz-screen') {
                 bgm.pause();
-				quizBgm.currentTime = 0
+                quizBgm.currentTime = 0; // 퀴즈 BGM 처음부터
                 quizBgm.play().catch(e => console.log(e));
-            } else {
-                // 퀴즈 화면을 벗어날 때 (메인, 결과, 설정, 비망록 등): 퀴즈 BGM 정지, 메인 BGM 재생
+            } 
+            // 2. 퀴즈 화면에서 빠져나와 다른 화면(메인, 설정, 비망록 등)으로 갈 때
+            else if (currentScreenId === 'quiz-screen' && screenId !== 'quiz-screen') {
                 quizBgm.pause();
-				bgm.currentTime = 0;
+                bgm.currentTime = 0; // 메인 BGM 처음부터
                 bgm.play().catch(e => console.log(e));
             }
+            // 3. 그 외의 경우 (메인 ↔ 설정 ↔ 비망록 등)에는 음악이 끊기지 않고 자연스럽게 계속 재생됨
         }
     }
     function returnToHome() { switchScreen('home-screen'); }
