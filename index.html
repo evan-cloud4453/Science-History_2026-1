@@ -1995,7 +1995,7 @@
             feedbackTitle.style.color = 'var(--wrong-color)';
             feedbackTitle.textContent = `오답입니다. (답: ${answer})`;
         }
-        feedbackRationale.textContent = rationale;
+        feedbackRationale.innerHTML = rationale;
         feedbackBox.style.display = 'block'; 
     }
 
