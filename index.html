@@ -371,57 +371,6 @@
 	const quizBgm = document.getElementById('quiz-bgm');
     const soundCorrect = document.getElementById('sound-correct');
     const soundWrong = document.getElementById('sound-wrong');
-
-	const chaptersInfo = [
-        { id: 1, title: "역사와 과학사", releaseDate: new Date("2000-01-01T00:00:00") }, // 이미 공개
-        { id: 2, title: "자연철학과 소피즘", releaseDate: new Date("2000-01-01T00:00:00") }, 
-        { id: 3, title: "에라토스테네스와 앙부일구", releaseDate: new Date("2000-01-01T00:00:00") },
-        { id: 4, title: "과학혁명의 구조", releaseDate: new Date("2000-01-01T00:00:00") },
-        { id: 5, title: "고대의 종말과 중세", releaseDate: new Date("2000-01-01T00:00:00") },
-        { id: 6, title: "이슬람 과학과 르네상스", releaseDate: new Date("2000-01-01T00:00:00") },
-        { id: 7, title: "과학혁명기", releaseDate: new Date("2000-01-01T00:00:00") },
-        { id: 9, title: "과학방법론과 생리학", releaseDate: new Date("2000-01-01T00:00:00") },
-        // --- 10주차부터 예약 공개 ---
-        { id: 10, title: "근대과학과 계몽주의", releaseDate: new Date("2026-05-19T00:00:00") },
-        { id: 11, title: "지질학혁명과 진화론", releaseDate: new Date("2026-05-26T00:00:00") }, // 10주차 1주 뒤
-        { id: 12, title: "진화론과 유전학", releaseDate: new Date("2026-06-02T00:00:00") }, // 11주차 1주 뒤
-        { id: 13, title: "열역학, 전자기학, 상대성이론", releaseDate: new Date("2026-06-09T00:00:00") }, // 12주차 1주 뒤
-        { id: 14, title: "양자역학, 원자폭탄", releaseDate: new Date("2026-06-16T00:00:00") } // 13주차 1주 뒤
-    ];
-
-
-	// 주차 그리드 생성 (공개 시간 체크 포함)
-    const grid = document.getElementById('week-grid');
-    const now = new Date(); // 현재 접속한 사용자의 시간
-
-    chaptersInfo.forEach(ch => {
-        const btn = document.createElement('button');
-        btn.className = 'btn outline';
-        btn.style.textAlign = 'left';
-        
-        if (!quizData[ch.id]) {
-            // 데이터가 아예 없는 경우
-            btn.textContent = `[${ch.id}주차] ${ch.title} (데이터 준비중)`;
-            btn.disabled = true;
-        } else if (now < ch.releaseDate) {
-            // 아직 공개 시간이 되지 않은 경우
-            // 날짜 포맷 (예: 05.19)
-            const month = String(ch.releaseDate.getMonth() + 1).padStart(2, '0');
-            const day = String(ch.releaseDate.getDate()).padStart(2, '0');
-            
-            btn.textContent = `[${ch.id}주차] ${ch.title} (${month}.${day} 공개)`;
-            btn.disabled = true; // 버튼 클릭 불가
-            btn.style.opacity = '0.6'; // 시각적으로 비활성화 느낌 강조
-        } else {
-            // 정상적으로 공개된 경우
-            btn.textContent = `[${ch.id}주차] ${ch.title}`;
-            btn.onclick = () => {
-                startBGM(); // 오디오 시작 (수정한 BGM 함수명에 맞게 조절 필요할 수 있음)
-                startQuiz(ch);
-            };
-        }
-        grid.appendChild(btn);
-    });
     
     let isBGMMuted = false;
     let isSFXMuted = false;
@@ -544,22 +493,21 @@
     }
     function returnToHome() { switchScreen('home-screen'); }
 
-    // --- 교안을 바탕으로 명명된 주차별 주제 목록 ---
-    const chaptersInfo = [
-        { id: 1, title: "역사와 과학사" },
-        { id: 2, title: "자연철학과 소피즘" },
-        { id: 3, title: "에라토스테네스와 앙부일구" },
-        { id: 4, title: "과학혁명의 구조" },
-        { id: 5, title: "고대의 종말과 중세" },
-        { id: 6, title: "중세와 르네상스" },
-        { id: 7, title: "과학혁명기" },
-        { id: 9, title: "과학방법론과 생리학" },
-        { id: 10, title: "근대과학과 계몽주의" },
-        { id: 11, title: "산업·화학·프랑스 혁명" },
-        { id: 12, title: "지질학혁명과 진화론" },
-        { id: 13, title: "진화론, 유전학, 분자생물학" },
-        { id: 14, title: "열역학, 전자기학, 상대성이론" },
-	{ id: 15, title: "양자역학, 원자폭탄" },
+	const chaptersInfo = [
+        { id: 1, title: "역사와 과학사", releaseDate: new Date("2000-01-01T00:00:00") }, // 이미 공개
+        { id: 2, title: "자연철학과 소피즘", releaseDate: new Date("2000-01-01T00:00:00") }, 
+        { id: 3, title: "에라토스테네스와 앙부일구", releaseDate: new Date("2000-01-01T00:00:00") },
+        { id: 4, title: "과학혁명의 구조", releaseDate: new Date("2000-01-01T00:00:00") },
+        { id: 5, title: "고대의 종말과 중세", releaseDate: new Date("2000-01-01T00:00:00") },
+        { id: 6, title: "이슬람 과학과 르네상스", releaseDate: new Date("2000-01-01T00:00:00") },
+        { id: 7, title: "과학혁명기", releaseDate: new Date("2000-01-01T00:00:00") },
+        { id: 9, title: "과학방법론과 생리학", releaseDate: new Date("2000-01-01T00:00:00") },
+        // --- 10주차부터 예약 공개 ---
+        { id: 10, title: "근대과학과 계몽주의", releaseDate: new Date("2026-05-19T00:00:00") },
+        { id: 11, title: "지질학혁명과 진화론", releaseDate: new Date("2026-05-26T00:00:00") }, // 10주차 1주 뒤
+        { id: 12, title: "진화론과 유전학", releaseDate: new Date("2026-06-02T00:00:00") }, // 11주차 1주 뒤
+        { id: 13, title: "열역학, 전자기학, 상대성이론", releaseDate: new Date("2026-06-09T00:00:00") }, // 12주차 1주 뒤
+        { id: 14, title: "양자역학, 원자폭탄", releaseDate: new Date("2026-06-16T00:00:00") } // 13주차 1주 뒤
     ];
 
     // --- 퀴즈 데이터 ---
@@ -1881,6 +1829,39 @@
     let currentChapter = null;
     let currentQIndex = 0;
     let sessionState = []; 
+
+		// 주차 그리드 생성 (공개 시간 체크 포함)
+    const grid = document.getElementById('week-grid');
+    const now = new Date(); // 현재 접속한 사용자의 시간
+
+    chaptersInfo.forEach(ch => {
+        const btn = document.createElement('button');
+        btn.className = 'btn outline';
+        btn.style.textAlign = 'left';
+        
+        if (!quizData[ch.id]) {
+            // 데이터가 아예 없는 경우
+            btn.textContent = `[${ch.id}주차] ${ch.title} (데이터 준비중)`;
+            btn.disabled = true;
+        } else if (now < ch.releaseDate) {
+            // 아직 공개 시간이 되지 않은 경우
+            // 날짜 포맷 (예: 05.19)
+            const month = String(ch.releaseDate.getMonth() + 1).padStart(2, '0');
+            const day = String(ch.releaseDate.getDate()).padStart(2, '0');
+            
+            btn.textContent = `[${ch.id}주차] ${ch.title} (${month}.${day} 공개)`;
+            btn.disabled = true; // 버튼 클릭 불가
+            btn.style.opacity = '0.6'; // 시각적으로 비활성화 느낌 강조
+        } else {
+            // 정상적으로 공개된 경우
+            btn.textContent = `[${ch.id}주차] ${ch.title}`;
+            btn.onclick = () => {
+                startBGM(); // 오디오 시작 (수정한 BGM 함수명에 맞게 조절 필요할 수 있음)
+                startQuiz(ch);
+            };
+        }
+        grid.appendChild(btn);
+    });
 
     function startQuiz(chapter) {
         currentChapter = chapter;
