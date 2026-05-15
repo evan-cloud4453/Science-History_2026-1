@@ -466,10 +466,12 @@
             if (screenId === 'quiz-screen') {
                 // 퀴즈 화면으로 갈 때: 메인 BGM 정지, 퀴즈 BGM 재생
                 bgm.pause();
+				quizBgm.currentTime = 0
                 quizBgm.play().catch(e => console.log(e));
             } else {
                 // 퀴즈 화면을 벗어날 때 (메인, 결과, 설정, 비망록 등): 퀴즈 BGM 정지, 메인 BGM 재생
                 quizBgm.pause();
+				bgm.currentTime = 0;
                 bgm.play().catch(e => console.log(e));
             }
         }
