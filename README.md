@@ -13,7 +13,7 @@
 
 ---
 <details>
-<summary><b>## English Summary</b></summary>
+<summary><b>English Summary</b></summary>
 
 
 A single-file, dependency-free quiz app built for the *History of Science* course
