@@ -15,6 +15,7 @@
 <details>
 <summary><b>English Summary</b></summary>
 
+<br/>
 
 A single-file, dependency-free quiz app built for the *History of Science* course
 (Sejong University, Spring 2026). It started as my own review tool for the weekly
