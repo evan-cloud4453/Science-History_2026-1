@@ -12,7 +12,7 @@
 ![Questions](https://img.shields.io/badge/questions-214-d4af37)
 
 ---
-
+<details>
 ## English Summary
 
 A single-file, dependency-free quiz app built for the *History of Science* course
@@ -28,7 +28,7 @@ so that classmates could study the same material with a bit more fun.
 
 Quiz items are taken from Prof. **Jeong Yeon-cheol**'s *History of Science* lectures
 at Sejong University and are used for non-commercial study purposes only.
-
+</details>
 ---
 
 ## 시작하게 된 계기
