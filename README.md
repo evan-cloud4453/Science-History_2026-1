@@ -31,7 +31,7 @@ at Sejong University and are used for non-commercial study purposes only.
 </details>
 ---
 
-## 시작하게 된 계기
+## 개발 배경
 
 이 프로젝트는 처음부터 서비스로 기획한 것이 아니라, **제 시험공부용 도구**로 시작했습니다.
 
